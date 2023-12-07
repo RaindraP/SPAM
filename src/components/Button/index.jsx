@@ -1,0 +1,47 @@
+import React from "react";
+import PropTypes from "prop-types";
+
+const shapes = { round: "rounded-[10px]" };
+const variants = {
+  outline: {
+    teal_700: "border border-solid border-teal-700 shadow-bs text-black-900",
+  },
+  fill: { teal_700: "bg-teal-700 text-white-A700_e2" },
+};
+const sizes = { xs: "p-2.5", sm: "p-4", md: "p-5" };
+
+const Button = ({
+  children,
+  className = "",
+  leftIcon,
+  rightIcon,
+  shape = "",
+  size = "",
+  variant = "",
+  color = "",
+  ...restProps
+}) => {
+  return (
+    <button
+      className={`${className} ${(shape && shapes[shape]) || ""} ${
+        (size && sizes[size]) || ""
+      } ${(variant && variants[variant]?.[color]) || ""}`}
+      {...restProps}
+    >
+      {!!leftIcon && leftIcon}
+      {children}
+      {!!rightIcon && rightIcon}
+    </button>
+  );
+};
+
+Button.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+  shape: PropTypes.oneOf(["round"]),
+  size: PropTypes.oneOf(["xs", "sm", "md"]),
+  variant: PropTypes.oneOf(["outline", "fill"]),
+  color: PropTypes.oneOf(["teal_700"]),
+};
+
+export { Button };
